@@ -1,0 +1,32 @@
+Optional Commands Are Available Here
+Note:This Commands Tested With Windows 11 
+
+Internal Commands
+1)cd
+2)exit
+
+System and Network Tools
+1)ipconfig
+2)ping google.com
+3)systeminfo
+4)tasklist
+5)hostname
+6)whoami
+7)date
+8)time
+
+Windows Application
+1)notepad
+2)calc
+3)mspaint
+
+Developer Tools(OK For Dowloaded Apps)
+1)python
+2)git
+3)gcc
+4)node
+
+Commands Works With cmd(cmd /c Examples)
+1)cmd /c dir
+2)cmd /c cls
+3)cmd /c echo Merhaba
