@@ -95,8 +95,8 @@ int remote_control_active = 0;
 int light_red = 0;
 int park_wait = 0;
 int night_mode_active = 0;
-int is_lane_right_available = 0;
 int is_lane_left_available = 0;
+int is_lane_right_available = 0;
 int passing_order = 0;
 int over_speed_limit = 0;
 int defrost_system_active = 0;
@@ -215,7 +215,6 @@ State_t handle_emergency(void){
 State_t handle_charging(void){
     printf("[CHARGING] Battery is low! Redirecting to charging station...\n");
     
-    // Once battery is no longer low, return to system check
     if (!battery_low) {
         printf(">> [CHARGING] Battery fully charged. Resuming system check...\n");
         return STATE_SYS_CHECK;
@@ -226,9 +225,8 @@ State_t handle_charging(void){
 State_t handle_calibration(void){
     printf("[CALIBRATION] Sensor recalibration in progress...\n");
     
-    // Once calibration is complete, return to navigation
     if (!calibration_needed){
-        printf(">> [CALIBRATION] Calibration completed successfully.\n");
+        printf("[CALIBRATION] Calibration completed successfully.\n");
         return STATE_NAVIGATE;
     }
     return STATE_CALIBRATION;
@@ -237,9 +235,8 @@ State_t handle_calibration(void){
 State_t handle_manual_override(void){
     printf("[MANUAL OVERRIDE] Operator took control. Manual driving active...\n");
     
-    // When remote control is released, return to navigation
     if (!remote_control_active){
-        printf(">> [MANUAL OVERRIDE] Remote control disabled. Resuming autonomous mode.\n");
+        printf("[MANUAL OVERRIDE] Remote control disabled. Resuming autonomous mode.\n");
         return STATE_NAVIGATE;
     }
     return STATE_MANUAL_OVERRIDE;
@@ -434,8 +431,7 @@ State_t handle_blind_spot_alert(void){
 	}
 }
 
-
-int main(void) {
+int main(void){
     srand(time(NULL)); 
 
     State_t current_state = STATE_IDLE;
@@ -443,7 +439,7 @@ int main(void) {
     printf("--- Randomized Autonomous System FSM Simulation Started ---\n");
 
     int step;
-    for (step = 1; step <= 100; step++) {
+    for (step = 1; step <= 100; step++){
         printf("\n----------------------------------------\n");
         printf("[Loop Step %d]\n", step);
 
@@ -469,7 +465,6 @@ int main(void) {
         available_ota_sw = rand()% 2;
         trailer_connected = rand()% 2;
         
-
         printf(">> [SENSOR STATES : 1st STAGE] start:%d | sensors_ok:%d | obstacle:%d | dead_end:%d | battery_fault:%d | battery_low:%d | calibration_needed:%d | remote_control_active:%d | light_red:%d | park_wait:%d | night_mode_active:%d\n",
                system_start_signal, sensors_ok, obstacle_detected, dead_end_detected, critical_battery_fault, battery_low, calibration_needed, remote_control_active, light_red, park_wait, night_mode_active);
     	printf(">> [SENSOR STATES : 2ns STAGE] lane_left:%d | lane_right:%d | passing_order:%d | over_speed_limit:%d | defrost_system_active:%d | is_gps_lost:%d | emergency_mode_active:%d | long_nonactive_time:%d | available_ota_sw:%d | trailer_connected:%d\n",
